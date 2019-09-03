@@ -14,7 +14,7 @@ var Url=mongoose.model('Url',urlSchema)
 exports.newURL=(paramurl, callback)=>{
   paramurl=paramurl.includes("http://")?paramurl.replace("http://",""):paramurl
   paramurl=paramurl.includes("https://")?paramurl.replace("https://",""):paramurl
-  dns.lookup(paramurl,(err,address,family)=>{
+  dns.lookup(paramurl.split('/')[0],(err,address,family)=>{
     if (err)
     {
       callback({"error":"invalid URL"})
@@ -55,7 +55,6 @@ exports.getURL=(id,callback)=>{
       }
     else
       {
-        console.log(data)
         callback(null,data)
       }
     
